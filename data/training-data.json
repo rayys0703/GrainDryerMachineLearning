@@ -1,0 +1,100 @@
+[
+  [
+    [
+      {
+        "Jumlah Barisan": 17,
+        "DryingTime": 480
+      },
+      {"GrainTemperature": 28.0, "GrainMoisture": 30.0, "RoomTemperature": 30.0, "Weight": 2000.0},
+      {"GrainTemperature": 28.6875, "GrainMoisture": 29.65625, "RoomTemperature": 30.34375, "Weight": 2000.0},
+      {"GrainTemperature": 29.375, "GrainMoisture": 29.3125, "RoomTemperature": 30.6875, "Weight": 2000.0},
+      {"GrainTemperature": 30.0625, "GrainMoisture": 28.96875, "RoomTemperature": 31.03125, "Weight": 2000.0},
+      {"GrainTemperature": 30.75, "GrainMoisture": 28.625, "RoomTemperature": 31.375, "Weight": 2000.0},
+      {"GrainTemperature": 31.4375, "GrainMoisture": 28.28125, "RoomTemperature": 31.71875, "Weight": 2000.0},
+      {"GrainTemperature": 32.125, "GrainMoisture": 27.9375, "RoomTemperature": 32.0625, "Weight": 2000.0},
+      {"GrainTemperature": 32.8125, "GrainMoisture": 27.59375, "RoomTemperature": 32.40625, "Weight": 2000.0},
+      {"GrainTemperature": 33.5, "GrainMoisture": 27.25, "RoomTemperature": 32.75, "Weight": 2000.0},
+      {"GrainTemperature": 34.1875, "GrainMoisture": 26.90625, "RoomTemperature": 33.09375, "Weight": 2000.0},
+      {"GrainTemperature": 34.875, "GrainMoisture": 26.5625, "RoomTemperature": 33.4375, "Weight": 2000.0},
+      {"GrainTemperature": 35.5625, "GrainMoisture": 26.21875, "RoomTemperature": 33.78125, "Weight": 2000.0},
+      {"GrainTemperature": 36.25, "GrainMoisture": 25.875, "RoomTemperature": 34.125, "Weight": 2000.0},
+      {"GrainTemperature": 36.9375, "GrainMoisture": 25.53125, "RoomTemperature": 34.46875, "Weight": 2000.0},
+      {"GrainTemperature": 37.625, "GrainMoisture": 25.1875, "RoomTemperature": 34.8125, "Weight": 2000.0},
+      {"GrainTemperature": 38.3125, "GrainMoisture": 24.84375, "RoomTemperature": 35.15625, "Weight": 2000.0},
+      {"GrainTemperature": 39.0, "GrainMoisture": 24.5, "RoomTemperature": 35.5, "Weight": 2000.0}
+    ],
+    {"DryingTime": 480}
+  ],
+  [
+    [
+      {
+        "Jumlah Barisan": 13,
+        "DryingTime": 360
+      },
+      {"GrainTemperature": 40.0, "GrainMoisture": 30.0, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 29.54167, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 29.08334, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 28.62501, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 28.16668, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 27.70835, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 27.25002, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 26.79169, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 26.33336, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 25.87503, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 25.4167, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 24.95837, "RoomTemperature": 40.0, "Weight": 2000.0},
+      {"GrainTemperature": 40.0, "GrainMoisture": 24.5, "RoomTemperature": 40.0, "Weight": 2000.0}
+    ],
+    {"DryingTime": 360}
+  ],
+  [
+    [
+      {
+        "Jumlah Barisan": 3,
+        "DryingTime": 60
+      },
+      {"GrainTemperature": 28.0, "GrainMoisture": 16.0, "RoomTemperature": 30.0, "Weight": 2000.0},
+      {"GrainTemperature": 30.5, "GrainMoisture": 15.15, "RoomTemperature": 31.25, "Weight": 2000.0},
+      {"GrainTemperature": 33.0, "GrainMoisture": 14.3, "RoomTemperature": 32.5, "Weight": 2000.0}
+    ],
+    {"DryingTime": 60}
+  ],
+  [
+    [
+      {
+        "Jumlah Barisan": 1,
+        "DryingTime": 0
+      },
+      {"GrainTemperature": 40.0, "GrainMoisture": 14.3, "RoomTemperature": 40.0, "Weight": 2000.0}
+    ],
+    {"DryingTime": 0}
+  ],
+  [
+    [
+      {
+        "Jumlah Barisan": 19,
+        "DryingTime": 540
+      },
+      {"GrainTemperature": 28.0, "GrainMoisture": 30.0, "RoomTemperature": 30.0, "Weight": 3000.0},
+      {"GrainTemperature": 28.6111, "GrainMoisture": 29.6944, "RoomTemperature": 30.3056, "Weight": 3000.0},
+      {"GrainTemperature": 29.2222, "GrainMoisture": 29.3888, "RoomTemperature": 30.6112, "Weight": 3000.0},
+      {"GrainTemperature": 29.8333, "GrainMoisture": 29.0832, "RoomTemperature": 30.9168, "Weight": 3000.0},
+      {"GrainTemperature": 30.4444, "GrainMoisture": 28.7776, "RoomTemperature": 31.2224, "Weight": 3000.0},
+      {"GrainTemperature": 31.0555, "GrainMoisture": 28.472, "RoomTemperature": 31.528, "Weight": 3000.0},
+      {"GrainTemperature": 31.6666, "GrainMoisture": 28.1664, "RoomTemperature": 31.8336, "Weight": 3000.0},
+      {"GrainTemperature": 32.2777, "GrainMoisture": 27.8608, "RoomTemperature": 32.1392, "Weight": 3000.0},
+      {"GrainTemperature": 32.8888, "GrainMoisture": 27.5552, "RoomTemperature": 32.4448, "Weight": 3000.0},
+      {"GrainTemperature": 33.4999, "GrainMoisture": 27.2496, "RoomTemperature": 32.7504, "Weight": 3000.0},
+      {"GrainTemperature": 34.111, "GrainMoisture": 26.944, "RoomTemperature": 33.056, "Weight": 3000.0},
+      {"GrainTemperature": 34.7221, "GrainMoisture": 26.6384, "RoomTemperature": 33.3616, "Weight": 3000.0},
+      {"GrainTemperature": 35.3332, "GrainMoisture": 26.3328, "RoomTemperature": 33.6672, "Weight": 3000.0},
+      {"GrainTemperature": 35.9443, "GrainMoisture": 26.0272, "RoomTemperature": 33.9728, "Weight": 3000.0},
+      {"GrainTemperature": 36.5554, "GrainMoisture": 25.7216, "RoomTemperature": 34.2784, "Weight": 3000.0},
+      {"GrainTemperature": 37.1665, "GrainMoisture": 25.416, "RoomTemperature": 34.584, "Weight": 3000.0},
+      {"GrainTemperature": 37.7776, "GrainMoisture": 25.1104, "RoomTemperature": 34.8896, "Weight": 3000.0},
+      {"GrainTemperature": 38.3887, "GrainMoisture": 24.8048, "RoomTemperature": 35.1952, "Weight": 3000.0},
+      {"GrainTemperature": 39.0, "GrainMoisture": 24.5, "RoomTemperature": 35.5, "Weight": 3000.0}
+    ],
+    {"DryingTime": 540}
+  ]
+]
