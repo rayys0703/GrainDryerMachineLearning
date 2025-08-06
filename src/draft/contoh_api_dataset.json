@@ -1,0 +1,220 @@
+[
+  {
+    "process_id": 1,
+    "grain_type_id": 1,
+    "berat_gabah": "20000",
+    "avg_estimasi_durasi": "1199",
+    "intervals": [
+      {
+        "interval_id": 1,
+        "timestamp": "2025-08-06 14:33:54",
+        "estimasi_durasi": "1200",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0000000",
+            "kadar_air_gabah": "28.0000000",
+            "suhu_ruangan": "28.0000000",
+            "suhu_pembakaran": "300.9934283",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 2,
+        "timestamp": "2025-08-06 14:33:59",
+        "estimasi_durasi": "1199.9166667",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0009722",
+            "kadar_air_gabah": "27.9990278",
+            "suhu_ruangan": "28.0349048",
+            "suhu_pembakaran": "300.0724664",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 3,
+        "timestamp": "2025-08-06 14:34:04",
+        "estimasi_durasi": "1199.8333333",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0019444",
+            "kadar_air_gabah": "27.9980556",
+            "suhu_ruangan": "28.0697990",
+            "suhu_pembakaran": "301.9929418",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 4,
+        "timestamp": "2025-08-06 14:34:09",
+        "estimasi_durasi": "1199.75",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0029167",
+            "kadar_air_gabah": "27.9970833",
+            "suhu_ruangan": "28.1046719",
+            "suhu_pembakaran": "304.0913443",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 5,
+        "timestamp": "2025-08-06 14:34:14",
+        "estimasi_durasi": "1199.6666667",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0038889",
+            "kadar_air_gabah": "27.9961111",
+            "suhu_ruangan": "28.1395129",
+            "suhu_pembakaran": "300.9234243",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 6,
+        "timestamp": "2025-08-06 14:34:19",
+        "estimasi_durasi": "1199.5833333",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0048611",
+            "kadar_air_gabah": "27.9951389",
+            "suhu_ruangan": "28.1743115",
+            "suhu_pembakaran": "301.2682079",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 7,
+        "timestamp": "2025-08-06 14:34:24",
+        "estimasi_durasi": "1199.5",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0058333",
+            "kadar_air_gabah": "27.9941667",
+            "suhu_ruangan": "28.2090569",
+            "suhu_pembakaran": "305.2375425",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 8,
+        "timestamp": "2025-08-06 14:34:29",
+        "estimasi_durasi": "1199.4166667",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0068056",
+            "kadar_air_gabah": "27.9931944",
+            "suhu_ruangan": "28.2437387",
+            "suhu_pembakaran": "303.9540884",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 9,
+        "timestamp": "2025-08-06 14:34:34",
+        "estimasi_durasi": "1199.3333333",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0077778",
+            "kadar_air_gabah": "27.9922222",
+            "suhu_ruangan": "28.2783462",
+            "suhu_pembakaran": "301.8174248",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 10,
+        "timestamp": "2025-08-06 14:34:39",
+        "estimasi_durasi": "1199.25",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0087500",
+            "kadar_air_gabah": "27.9912500",
+            "suhu_ruangan": "28.3128689",
+            "suhu_pembakaran": "304.1752900",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 11,
+        "timestamp": "2025-08-06 14:34:44",
+        "estimasi_durasi": "1199.1666667",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0097222",
+            "kadar_air_gabah": "27.9902778",
+            "suhu_ruangan": "28.3472964",
+            "suhu_pembakaran": "302.4933660",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 12,
+        "timestamp": "2025-08-06 14:34:49",
+        "estimasi_durasi": "1199.0833333",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0106944",
+            "kadar_air_gabah": "27.9893056",
+            "suhu_ruangan": "28.3816180",
+            "suhu_pembakaran": "302.8146064",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 13,
+        "timestamp": "2025-08-06 14:34:54",
+        "estimasi_durasi": "1199",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0116667",
+            "kadar_air_gabah": "27.9883333",
+            "suhu_ruangan": "28.4158234",
+            "suhu_pembakaran": "304.5512910",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 14,
+        "timestamp": "2025-08-06 14:34:59",
+        "estimasi_durasi": "1198.9166667",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0126389",
+            "kadar_air_gabah": "27.9873611",
+            "suhu_ruangan": "28.4499021",
+            "suhu_pembakaran": "300.5571510",
+            "status_pengaduk": false
+          }
+        ]
+      },
+      {
+        "interval_id": 15,
+        "timestamp": "2025-08-06 14:35:04",
+        "estimasi_durasi": "1198.8333333",
+        "sensor_data": [
+          {
+            "suhu_gabah": "26.0136111",
+            "kadar_air_gabah": "27.9863889",
+            "suhu_ruangan": "28.4838438",
+            "suhu_pembakaran": "301.2448800",
+            "status_pengaduk": false
+          }
+        ]
+      }
+    ]
+  }
+]

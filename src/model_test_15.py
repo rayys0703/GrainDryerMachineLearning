@@ -1,13 +1,12 @@
 import numpy as np
 import logging
-import requests
 
 # Logging untuk mencatat info saat training dan debug
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class PredictionModel:
-    def __init__(self, api_url="http://127.0.0.1:3333/api/dataset"):
+    def __init__(self):
         # Inisialisasi bobot dan bias
         self.w = None
         self.b = None
@@ -18,56 +17,31 @@ class PredictionModel:
         self.training_data = []
 
         # Ambil data dan siapkan training
-        self.load_training_data(api_url)
+        self.load_training_data()
         self.normalize_training_data()
         self.initialize_weights()
         self.train_model()
         self.evaluate_model()
 
-    def load_training_data(self, api_url):
-        try:
-            response = requests.get(api_url, timeout=10)
-            response.raise_for_status()
-            raw_data = response.json()
-            logger.info(f"Loaded {len(raw_data)} dataset entries from API")
-
-            for process in raw_data:
-                grain_type_id = float(process['grain_type_id'])
-                weight = float(process['berat_gabah'])
-                intervals = process['intervals']
-
-                for interval in intervals:
-                    measurements = interval['sensor_data']
-                    drying_time = float(interval['estimasi_durasi']) if interval['estimasi_durasi'] is not None else 0.0
-
-                    if not measurements or len(measurements) != 1:
-                        logger.warning(f"Invalid sensor data in interval {interval['interval_id']} (Process ID: {process['process_id']}, DryingTime: {drying_time})")
-                        continue
-
-                    measurement = measurements[0]
-                    if any(measurement[key] is None for key in ['suhu_gabah', 'kadar_air_gabah', 'suhu_ruangan', 'suhu_pembakaran', 'status_pengaduk']):
-                        logger.warning(f"Missing required sensor data in interval {interval['interval_id']} (Process ID: {process['process_id']}, DryingTime: {drying_time})")
-                        continue
-
-                    data = {
-                        "GrainTypeId": grain_type_id,
-                        "GrainMoisture": float(measurement['kadar_air_gabah']),
-                        "GrainTemperature": float(measurement['suhu_gabah']),
-                        "RoomTemperature": float(measurement['suhu_ruangan']),
-                        "BurningTemperature": float(measurement['suhu_pembakaran']),
-                        "StirrerStatus": float(measurement['status_pengaduk']),
-                        "Weight": weight,
-                        "DryingTime": drying_time
-                    }
-                    self.training_data.append(data)
-
-            logger.info(f"Processed {len(self.training_data)} training intervals")
-        except requests.RequestException as e:
-            logger.error(f"Error loading training data from API: {e}")
-            raise
-        except (ValueError, KeyError) as e:
-            logger.error(f"Error processing API data: {e}")
-            raise
+    def load_training_data(self):
+        self.training_data = [
+            {"GrainTypeId": 1.0, "GrainMoisture": 28.0000000, "GrainTemperature": 26.0000000, "RoomTemperature": 28.0000000, "BurningTemperature": 300.9934283, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1200.0000000},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9990278, "GrainTemperature": 26.0009722, "RoomTemperature": 28.0349048, "BurningTemperature": 300.0724664, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.9166667},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9980556, "GrainTemperature": 26.0019444, "RoomTemperature": 28.0697990, "BurningTemperature": 301.9929418, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.8333333},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9970833, "GrainTemperature": 26.0029167, "RoomTemperature": 28.1046719, "BurningTemperature": 304.0913443, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.7500000},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9961111, "GrainTemperature": 26.0038889, "RoomTemperature": 28.1395129, "BurningTemperature": 300.9234243, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.6666667},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9951389, "GrainTemperature": 26.0048611, "RoomTemperature": 28.1743115, "BurningTemperature": 301.2682079, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.5833333},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9941667, "GrainTemperature": 26.0058333, "RoomTemperature": 28.2090569, "BurningTemperature": 305.2375425, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.5000000},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9931944, "GrainTemperature": 26.0068056, "RoomTemperature": 28.2437387, "BurningTemperature": 303.9540884, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.4166667},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9922222, "GrainTemperature": 26.0077778, "RoomTemperature": 28.2783462, "BurningTemperature": 301.8174248, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.3333333},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9912500, "GrainTemperature": 26.0087500, "RoomTemperature": 28.3128689, "BurningTemperature": 304.1752900, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.2500000},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9902778, "GrainTemperature": 26.0097222, "RoomTemperature": 28.3472964, "BurningTemperature": 302.4933660, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.1666667},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9893056, "GrainTemperature": 26.0106944, "RoomTemperature": 28.3816180, "BurningTemperature": 302.8146064, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.0833333},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9883333, "GrainTemperature": 26.0116667, "RoomTemperature": 28.4158234, "BurningTemperature": 304.5512910, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1199.0000000},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9873611, "GrainTemperature": 26.0126389, "RoomTemperature": 28.4499021, "BurningTemperature": 300.5571510, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1198.9166667},
+            {"GrainTypeId": 1.0, "GrainMoisture": 27.9863889, "GrainTemperature": 26.0136111, "RoomTemperature": 28.4838438, "BurningTemperature": 301.2448800, "Weight": 20000.0000000, "StirrerStatus": 1.0, "DryingTime": 1198.8333333},
+        ]
+        logger.info(f"Loaded {len(self.training_data)} training intervals from static data")
 
     def normalize(self, data):
         min_val = np.min(data, axis=0)
@@ -147,7 +121,7 @@ class PredictionModel:
 
     def train_model(self):
         logger.info("Starting training...")
-        iterations = 100000 #100k
+        iterations = 100000
         alpha = 0.01
         self.w, self.b, J_history, p_history = self.gradient_descent(
             self.X_norm, self.y_norm, self.w, self.b, alpha, iterations, 
@@ -157,6 +131,7 @@ class PredictionModel:
         logger.info(f"Final cost: {J_history[-1]:.2e}")
 
     def evaluate_model(self):
+        logger.info("Evaluating model...")
         m = self.X_norm.shape[0]
         y_pred_norm = np.dot(self.X_norm, self.w) + self.b
         y_pred = y_pred_norm * (self.y_max - self.y_min) + self.y_min  # Denormalisasi prediksi
@@ -183,11 +158,11 @@ class PredictionModel:
         ss_res = np.sum((y_actual - y_pred) ** 2)
         r2 = 1 - (ss_res / ss_tot) if ss_tot != 0 else 0
 
-        # logger.info(f"Evaluation Metrics:")
-        # logger.info(f"MSE: {mse:.7f}")
-        # logger.info(f"RMSE: {rmse:.7f}")
-        # logger.info(f"RME: {rme:.7f}")
-        # logger.info(f"R²: {r2:.7f}")
+        logger.info(f"Evaluation Metrics:")
+        logger.info(f"MSE: {mse:.7f}")
+        logger.info(f"RMSE: {rmse:.7f}")
+        logger.info(f"RME: {rme:.7f}")
+        logger.info(f"R²: {r2:.7f}")
 
         return mse, rmse, rme, r2
 
@@ -217,7 +192,7 @@ class PredictionModel:
         range_val = self.X_max - self.X_min
         range_val[range_val == 0] = 1.0
         X_new_norm = (X_new - self.X_min) / range_val
-        # logger.info(f"Normalized input: {X_new_norm}")
+        logger.info(f"Normalized input: {X_new_norm}")
 
         y_pred_norm = np.dot(X_new_norm, self.w) + self.b
         logger.info(f"Normalized prediction: {y_pred_norm:.7f}")

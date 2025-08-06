@@ -1,5 +1,6 @@
 import logging
 import requests
+import sys
 from flask import Flask, request, jsonify
 from model import PredictionModel
 from requests.adapters import HTTPAdapter
@@ -20,30 +21,19 @@ class PredictionService:
 
     def process_sensor_data(self, data):
         try:
-            required_keys = ['process_id', 'grain_type_id', 'points', 'weight', 'timestamp']
-            if not all(key in data for key in required_keys) or not isinstance(data['points'], list):
+            required_keys = ['process_id', 'grain_type_id', 'suhu_gabah', 'kadar_air_gabah', 'suhu_ruangan', 'suhu_pembakaran', 'status_pengaduk', 'kadar_air_target', 'weight', 'timestamp']
+            if not all(key in data for key in required_keys):
                 logger.error("Invalid sensor data format")
                 return {"error": "Invalid sensor data format"}, 400
 
-            points = data['points']
-            grain_temps = [p['grain_temperature'] for p in points if p['grain_temperature'] is not None]
-            grain_moists = [p['grain_moisture'] for p in points if p['grain_moisture'] is not None]
-            room_temps = [p['room_temperature'] for p in points if p['room_temperature'] is not None]
-            burning_temps = [p['burning_temperature'] for p in points if p['burning_temperature'] is not None]
-            stirrer_statuses = [1 if p['stirrer_status'] else 0 for p in points if p['stirrer_status'] is not None]
-
-            if not (grain_temps and grain_moists and room_temps and burning_temps and stirrer_statuses):
+            # Validasi nilai non-null
+            if any(data[key] is None for key in ['suhu_gabah', 'kadar_air_gabah', 'suhu_ruangan', 'suhu_pembakaran', 'status_pengaduk', 'kadar_air_target']):
                 logger.error("Missing required sensor data")
                 return {"error": "Missing required sensor data"}, 400
 
-            avg_temp = round(sum(grain_temps) / len(grain_temps), 1)
-            avg_moist = round(sum(grain_moists) / len(grain_moists), 1)
-            avg_room_temp = round(sum(room_temps) / len(room_temps), 1)
-            burning_temp = burning_temps[0]  # Ambil nilai tunggal
-            stirrer_status = stirrer_statuses[0]  # Ambil nilai tunggal
+            process_id = data['process_id']
             grain_type_id = data['grain_type_id']
             weight = data['weight']
-            process_id = data['process_id']
 
             if weight < 100:
                 logger.error(f"Invalid grain weight: {weight} kg")
@@ -51,35 +41,37 @@ class PredictionService:
 
             prediction_input = {
                 'GrainTypeId': float(grain_type_id),
-                'GrainTemperature': avg_temp,
-                'GrainMoisture': avg_moist,
-                'RoomTemperature': avg_room_temp,
-                'Weight': weight,
-                'BurningTemperature': burning_temp,
-                'StirrerStatus': stirrer_status
+                'GrainTemperature': float(data['suhu_gabah']),
+                'GrainMoisture': float(data['kadar_air_gabah']),
+                'RoomTemperature': float(data['suhu_ruangan']),
+                'BurningTemperature': float(data['suhu_pembakaran']),
+                'StirrerStatus': 1 if data['status_pengaduk'] else 0,
+                'TargetMoisture': float(data['kadar_air_target']),  # Tambahkan TargetMoisture
+                'Weight': float(weight)
             }
 
-            predicted_time = self.model.predict(prediction_input)  # Mulai Predict
-            logger.info(f"Prediction: {predicted_time:.2f} minutes (ID: {process_id})")
+            y_pred = self.model.predict(prediction_input)
+            y_pred = float(y_pred)  # Konversi ke skalar float
+            logger.info(f"Prediction: {y_pred:.2f} minutes (ID: {process_id})")
 
             laravel_payload = {
                 'process_id': process_id,
                 'grain_type_id': grain_type_id,
-                'points': points,
-                'avg_grain_temperature': avg_temp,
-                'avg_grain_moisture': avg_moist,
-                'burning_temperature': burning_temp,
-                'stirrer_status': bool(stirrer_status),
-                'predicted_drying_time': predicted_time,
-                'weight': weight,
+                'suhu_gabah': float(data['suhu_gabah']),
+                'kadar_air_gabah': float(data['kadar_air_gabah']),
+                'suhu_ruangan': float(data['suhu_ruangan']),
+                'suhu_pembakaran': float(data['suhu_pembakaran']),
+                'status_pengaduk': bool(data['status_pengaduk']),
+                'predicted_drying_time': y_pred,
+                'weight': float(weight),
                 'timestamp': data['timestamp']
             }
 
             try:
-                response = self.session.post(self.laravel_api_url, json=laravel_payload, timeout=15)  # Kirim data ke Laravel
+                response = self.session.post(self.laravel_api_url, json=laravel_payload, timeout=15)
                 response.raise_for_status()
-                logger.info(f"Data sent to Laravel (ID: {process_id}, Estimated Duration: {predicted_time:.2f} minutes)")
-                return {"message": "Prediction processed and sent to Laravel", "predicted_drying_time": predicted_time}, 200
+                logger.info(f"Data sent to Laravel (ID: {process_id}, Estimated Duration: {y_pred:.2f} minutes)")
+                return {"message": "Prediction processed and sent to Laravel", "predicted_drying_time": y_pred}, 200
             except requests.RequestException as e:
                 logger.error(f"Failed to send data to Laravel: {e} (ID: {process_id})")
                 return {"error": "Failed to send data to Laravel"}, 500
@@ -88,7 +80,7 @@ class PredictionService:
             logger.error(f"Error processing sensor data: {e} (ID: {process_id})")
             return {"error": "Error processing sensor data"}, 500
 
-@app.route('/process-sensor-data', methods=['POST'])
+@app.route('/predict-now', methods=['POST'])
 def process_sensor_data():
     data = request.get_json()
     result, status_code = app.prediction_service.process_sensor_data(data)
@@ -96,4 +88,6 @@ def process_sensor_data():
 
 def run_flask(prediction_service):
     app.prediction_service = prediction_service
+    cli = sys.modules['flask.cli']
+    cli.show_server_banner = lambda *x: None
     app.run(host='0.0.0.0', port=5000, debug=False)
