@@ -46,7 +46,7 @@ class PredictionService:
                 'RoomTemperature': float(data['suhu_ruangan']),
                 'BurningTemperature': float(data['suhu_pembakaran']),
                 'StirrerStatus': 1 if data['status_pengaduk'] else 0,
-                'TargetMoisture': float(data['kadar_air_target']),  # Tambahkan TargetMoisture
+                'TargetMoisture': float(data['kadar_air_target']), 
                 'Weight': float(weight)
             }
 

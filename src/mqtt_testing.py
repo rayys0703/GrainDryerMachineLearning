@@ -88,9 +88,9 @@ try:
         # Kirim data gabah
         data_gabah = {
             "panel_id": 1,
-            "grain_temperature": round(row['Suhu Gabah (°C)'], 2),
-            "grain_moisture": round(row['Kadar Air Gabah (%)'], 2),
-            "room_temperature": round(row['Suhu Ruangan (°C)'], 2),
+            "grain_temperature": round(row['Suhu Gabah (°C)'], 7),
+            "grain_moisture": round(row['Kadar Air Gabah (%)'], 7),
+            "room_temperature": round(row['Suhu Ruangan (°C)'], 7),
             "timestamp": int(time.time())
         }
         client.publish(topics[0], json.dumps(data_gabah))
@@ -99,7 +99,7 @@ try:
         # Kirim data pembakaran
         data_pembakaran = {
             "panel_id": 5,
-            "burning_temperature": round(row['Suhu Pembakaran (°C)'], 2),
+            "burning_temperature": round(row['Suhu Pembakaran (°C)'], 7),
             "stirrer_status": False, 
             "timestamp": int(time.time())
         }
@@ -109,5 +109,5 @@ try:
         time.sleep(5)
 
 except KeyboardInterrupt:
-    print("Stopping MQTT publisher")
+    print("Stopping MQTT Testing")
     client.disconnect()

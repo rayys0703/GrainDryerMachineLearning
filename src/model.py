@@ -99,64 +99,33 @@ class PredictionModel:
         self.b = 0.0
         logger.info(f"Initialized weights: {[round(w, 3) for w in self.w]}, bias: {self.b}")
 
-    def compute_cost(self, X, y, w, b):
+    def compute_cost(self, X, y):
         m = X.shape[0]
-        cost_sum = 0
-        for i in range(m):
-            f_wb = np.dot(w, X[i]) + b
-            cost = (f_wb - y[i]) ** 2
-            cost_sum += cost
-        total_cost = (1 / (2 * m)) * cost_sum
-        return total_cost
+        predictions = np.dot(X, self.w) + self.b
+        cost = (1 / (2 * m)) * np.sum((predictions - y) ** 2)
+        return cost
 
-    def compute_gradient(self, X, y, w, b):
-        m = X.shape[0]
-        dj_dw = np.zeros(w.shape)
-        dj_db = 0
-
-        for i in range(m):
-            f_wb = np.dot(w, X[i]) + b
-            dj_dw_i = (f_wb - y[i]) * X[i]
-            dj_db_i = f_wb - y[i]
-            dj_dw += dj_dw_i
-            dj_db += dj_db_i
-
-        dj_dw = dj_dw / m
-        dj_db = dj_db / m
-        return dj_dw, dj_db
-
-    def gradient_descent(self, X, y, w_in, b_in, alpha, num_iters, cost_function, gradient_function):
-        J_history = []
-        p_history = []
-        b = b_in
-        w = w_in
-
-        for i in range(num_iters):
-            dj_dw, dj_db = gradient_function(X, y, w, b)
-            w = w - alpha * dj_dw
-            b = b - alpha * dj_db
-
-            if i < 10000:
-                J_history.append(cost_function(X, y, w, b))
-                p_history.append([w, b])
-
-            if i % max(1, num_iters // 10) == 0:
-                logger.info(f"Iteration {i:4d}: Cost {J_history[-1]:0.2e}   dw: {dj_dw[0]:0.3e}   db: {dj_db:0.3e}  w[0]: {w[0]:0.3e}   b: {b:0.3e}")
-
-        return w, b, J_history, p_history
+    def gradient_descent(self, X, y, w, b, learning_rate=0.01, iterations=50000):
+        m = len(X)
+        for i in range(iterations):
+            predictions = np.dot(X, w) + b
+            errors = predictions - y
+            dw = (1 / m) * np.dot(X.T, errors)
+            db = (1 / m) * np.sum(errors)
+            w = w - learning_rate * dw
+            b = b - learning_rate * db
+            if i % 10000 == 0:
+                cost = self.compute_cost(X, y)
+                logger.info(f"Iterasi {i}, Cost: {cost:.10f}")
+        return w, b
 
     def train_model(self):
         logger.info("Starting training...")
-        iterations = 100000 #100k
-        alpha = 0.01
-        self.w, self.b, J_history, p_history = self.gradient_descent(
-            self.X_norm, self.y_norm, self.w, self.b, alpha, iterations, 
-            self.compute_cost, self.compute_gradient
-        )
+        self.w, self.b = self.gradient_descent(self.X_norm, self.y_norm, self.w, self.b)
         logger.info(f"Training completed. Final weights: {[round(w, 7) for w in self.w]}, bias: {round(self.b, 7)}")
-        logger.info(f"Final cost: {J_history[-1]:.2e}")
 
     def evaluate_model(self):
+        logger.info("Evaluating model...")
         m = self.X_norm.shape[0]
         y_pred_norm = np.dot(self.X_norm, self.w) + self.b
         y_pred = y_pred_norm * (self.y_max - self.y_min) + self.y_min  # Denormalisasi prediksi
@@ -183,11 +152,11 @@ class PredictionModel:
         ss_res = np.sum((y_actual - y_pred) ** 2)
         r2 = 1 - (ss_res / ss_tot) if ss_tot != 0 else 0
 
-        # logger.info(f"Evaluation Metrics:")
-        # logger.info(f"MSE: {mse:.7f}")
-        # logger.info(f"RMSE: {rmse:.7f}")
-        # logger.info(f"RME: {rme:.7f}")
-        # logger.info(f"R²: {r2:.7f}")
+        logger.info(f"Evaluation Metrics:")
+        logger.info(f"MSE: {mse:.7f}")
+        logger.info(f"RMSE: {rmse:.7f}")
+        logger.info(f"RME: {rme:.7f}")
+        logger.info(f"R²: {r2:.7f}")
 
         return mse, rmse, rme, r2
 
@@ -217,7 +186,7 @@ class PredictionModel:
         range_val = self.X_max - self.X_min
         range_val[range_val == 0] = 1.0
         X_new_norm = (X_new - self.X_min) / range_val
-        # logger.info(f"Normalized input: {X_new_norm}")
+        logger.info(f"Normalized input: {X_new_norm}")
 
         y_pred_norm = np.dot(X_new_norm, self.w) + self.b
         logger.info(f"Normalized prediction: {y_pred_norm:.7f}")
